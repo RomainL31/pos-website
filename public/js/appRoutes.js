@@ -18,7 +18,7 @@ angular.module('appRoutes', [])
         })
 
         // user's profile page
-        .when('/users/:user_id', {
+        .when('/users/profile', {
             templateUrl: 'views/user_profile.html',
             controller: 'UserProfileController'
         })
@@ -30,9 +30,9 @@ angular.module('appRoutes', [])
         })
 
         // mail-box page
-        .when('/messages', {
-            templateUrl: '/views/message.html',
-            controller: 'MessageController'
+        .when('/inbox', {
+            templateUrl: '/views/inbox.html',
+            controller: 'InboxController'
         })
 
         // login page

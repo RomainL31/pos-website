@@ -8,8 +8,22 @@
 
     <title>SheepChat: Where sheep happens!</title>
 
+    <!-- JQUERY -->
+   	<!-- <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css"> -->
+	
+	<script src="libs/jquery/dist/jquery.min.js"></script>
+		<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
     <!-- CSS -->
-    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="css/style.css"> 
 
     <!-- custom styles -->
@@ -21,44 +35,126 @@
     <!-- ANGULAR CUSTOM -->
 
     <!-- CONTROLLERS -->
-	<!--     <script src="js/controllers/LoginCtrl.js"></script>		-->    
+	<script src="js/controllers/LoginCtrl.js"></script>   
 	<script src="js/controllers/MainCtrl.js"></script>
-	<!--     <script src="js/controllers/MessageCtrl.js"></script>		-->
-	<!--     <script src="js/controllers/PictureCtrl.js"></script>		-->
-	<!--     <script src="js/controllers/SettingsCtrl.js"></script>		-->
-	<!--     <script src="js/controllers/SignUpCtrl.js"></script>		-->    
+	<script src="js/controllers/InboxCtrl.js"></script>		
+	<script src="js/controllers/PictureCtrl.js"></script>
+	<script src="js/controllers/SettingsCtrl.js"></script>
+	<script src="js/controllers/SignUpCtrl.js"></script>   
 	<script src="js/controllers/UserCtrl.js"></script>
-	<!--     <script src="js/controllers/UserProfileCtrl.js"></script>		-->    
+	<script src="js/controllers/UserProfileCtrl.js"></script>
     
     <!-- SERVICES -->
     <script src="js/services/UserService.js"></script>
+    <script src="js/services/MessageService.js"></script>
+    <script src="js/services/PictureService.js"></script>
+
     
     <!-- CUSTOM -->
     <script src="js/appRoutes.js"></script>
     <script src="js/app.js"></script>
+
+    <script type="/text/javascript">
+    $(document).ready(function () {
+        $('.dropdown-toggle').dropdown();
+    });
+</script>
 </head>
 
 <body ng-app="sheepChat" ng-controller="MainController">
 	
-	<div class="container">
+	<div class="main-container">
 
-	    <!-- HEADER -->
-	    <nav class="navbar navbar-inverse">
-	        <div class="navbar-header">
-	            <a class="navbar-brand" href="/">SheepChat</a>
-	        </div>
-
-	        <!-- LINK TO OUR PAGES. ANGULAR HANDLES THE ROUTING HERE -->
-	        <ul class="nav navbar-nav">
-	            <li><a href="/users">Users</a></li>
-	        </ul>
+	    <!-- NAVBAR -->
+	    <nav class="navbar navbar-fixed-top navbar-inverse">
+	    	<div class="container-fluid">
+	    		<div class="navbar-header">
+	    			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+	    				<span class="icon-bar"></span>
+	    				<span class="icon-bar"></span>
+	    				<span class="icon-bar"></span>                        
+	    			</button>
+	    			<a class="navbar-brand" href="">
+	    				<span><img src="assets/img/logo-medium.png"/></span>
+	    				SheepChat
+	    			</a>
+	    		</div>
+	    		<div class="collapse navbar-collapse" id="myNavbar">
+	    			<ul class="nav navbar-nav navbar-right">
+	    				<li class="dropdown">
+	    					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Romain Leoni <span class="caret"></span></a>
+	    					<ul class="dropdown-menu">
+	    						<li><a href="/users/profile">My Profile</a></li>
+	    						<li><a href="/settings">Settings</a></li>
+	    						<li><a href="#">Logout</a></li>
+	    					</ul>
+	    				</li>
+	    			</ul>
+	    		</div>
+	    	</div>
 	    </nav>
 
-	    <!-- ANGULAR DYNAMIC CONTENT -->
-	    <div ng-view></div>
 
+		<div id="wrapper" class="active">
+	      
+	      	<!-- Sidebar -->
+	      	<div id="sidebar-wrapper">
+	      		<ul id="sidebar_menu" class="sidebar-nav">
+	           		<li class="sidebar-brand">
+	           			<a id="menu-toggle" href="#">Menu
+	           				<span id="main_icon" class="glyphicon glyphicon-align-justify">
+	           				</span>
+	           			</a>
+	           		</li>
+	      		</ul>
+	        	<ul class="sidebar-nav" id="sidebar">     
+	          		<li><a href="/">Home<span class="sub_icon glyphicon glyphicon-home"></span></a></li>
+
+	          		<li><a href="/inbox">Inbox<span class="sub_icon glyphicon glyphicon-inbox"></span></a></li>
+
+					<!-- separator -->
+	          		<li><a href="/users">Users<span class="sub_icon glyphicon glyphicon-user"></span></a></li>
+
+	          		<li><a href="/pictures">Pictures<span class="sub_icon glyphicon glyphicon-picture"></span></a></li>
+
+					<!-- separator / float bottom-->
+	          		<li><a href="/settings">Settings<span class="sub_icon glyphicon glyphicon-cog"></span></a></li>
+
+	        		<li><a>Logout<span class="sub_icon glyphicon glyphicon-off"></span></a></li>
+	        	</ul>
+	      	</div>
+
+	        <!-- PAGE CONTENT -->
+	    	<div id="page-content-wrapper" class="lead">
+		        <!-- Keep all page content within the page-content inset div! -->
+		        <div class="page-content inset">
+		          	<div class="row">
+		              	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		    				<div ng-view class="ng-content">
+		    					
+								<!-- Dynamic Angular pages will be loaded here -->
+							</div>
+						</div>
+		        	</div>
+		      	</div>
+			</div>
+
+    	</div>
+ 
 	</div>
 
+
+
+
 </body>
+
+<script>
+	$("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("active");
+        $("#page-content-wrapper").toggleClass("active");
+	});
+
+</script>
 
 </html>

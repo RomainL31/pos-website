@@ -259,8 +259,8 @@ router.route('/users/:message_id')
 // front-end routes ===========================================================
 
  app.get('*', function(req, res) {
-            res.sendfile('./public/views/index.html'); // load our public/index.html file
-        });
+    res.sendFile(path.resolve( __dirname + '/../public/views/index.html')); // load our public/index.html file
+});
 
 // register our routes ========================================================
 
